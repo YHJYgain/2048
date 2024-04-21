@@ -52,11 +52,3 @@ class GameOverUI:
         puzzle.GameGrid(self.master)
 
 
-# 测试代码
-if __name__ == "__main__":
-    root = Tk()
-    root.title("2048")
-    # 假设得分为 100
-    score = 100
-    game_over_ui = GameOverUI(root)
-    root.mainloop()
