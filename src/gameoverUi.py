@@ -1,5 +1,6 @@
 from tkinter import Tk, Frame, Label, Button, CENTER
 import tkinter.font as tkFont
+from _global import _current
 import logic
 import ui as c
 
@@ -20,7 +21,7 @@ class GameOverUI:
         # 显示分数
         self.score_label = Label(
 
-            text=f"分数: {0}",
+            text="当前分数: " + str(_current.getScore()),
             font=tkFont.Font(family="Arial", size=24),
             justify=CENTER
         )
