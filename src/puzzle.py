@@ -120,7 +120,8 @@ class GameGrid:
                 if logic.game_state(self.matrix) == 'lose':
                     self.grid_cells[1][1].configure(text="You", bg=c.BACKGROUND_COLOR_CELL_EMPTY)
                     self.grid_cells[1][2].configure(text="Lose!", bg=c.BACKGROUND_COLOR_CELL_EMPTY)
-
+                    import gameoverUi
+                    gameoverUi.GameOverUI(self.master)
 def return_to_menu(root):
     import menuUi
     menuUi.Game2048(root)
