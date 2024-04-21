@@ -35,9 +35,8 @@ class Game2048:
         self.root1 = self.master
 
     def start_game(self):
-        import mainUi  # 导入gameUi.py
-        mainUi.start_game(self.master)  # 调用gameUi.py中的start_game方法
-        print("Called start_game")
+        from puzzle import GameGrid
+        game_grid = GameGrid(self.master)
 
     def show_history(self):
         import rankUi
