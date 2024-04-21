@@ -2,6 +2,9 @@ import sqlite3
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
+from src import utils, constant
+
+utils.init(constant.SCRIPT_FILE,constant.DB_FILE)
 from menuUi import Game2048
 
 # back_button = ttk.Button(root, text="返回主菜单", command=lambda: Game2048.return_rank())
@@ -38,7 +41,7 @@ def show_history(root):
     style.configure("Treeview.Heading", background="#ADD8E6", foreground="black")  # 设置表头的背景色和字体颜色
 
     # 模拟查询结果
-    sample_scores = [5000, 4500, 4000, 3500, 3000, 2500, 2000, 1500, 1000, 500]
+    sample_scores = utils.query_records_descending(constant.DB_FILE)
 
     # 添加数据到Treeview
     for index, score in enumerate(sample_scores, start=1):

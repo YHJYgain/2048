@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
 
+
 class Game2048:
     def __init__(self, master):
         for widget in master.winfo_children():

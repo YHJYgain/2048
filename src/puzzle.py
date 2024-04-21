@@ -5,16 +5,20 @@ import ui as c
 import tkinter as tk
 from tkinter import ttk
 
+from _global import _current
+
+
 def gen():
     return random.randint(0, c.GRID_LEN - 1)
 
+
 class GameGrid:
     def __init__(self, master):
+        _current.__init__()
         self.master = master
         for widget in self.master.winfo_children():
             widget.destroy()
             # 创建返回主菜单按钮
-
         self.master.bind("<Key>", self.key_down)
         self.master.configure(bg="#00FFFF")  # 设置主窗口背景色为蓝绿色
         self.commands = {
@@ -41,16 +45,18 @@ class GameGrid:
 
     def init_grid(self):
         # 创建返回主菜单按钮
-        return_button = ttk.Button(self.master, text="返回主菜单", command=lambda:return_to_menu(self.master),
+        return_button = ttk.Button(self.master, text="返回主菜单", command=lambda: return_to_menu(self.master),
                                    style='TButton')
         return_button.grid(row=0, column=0, columnspan=c.GRID_LEN, pady=10, sticky="ew")
 
         # 创建分数和历史最高分数的标签
-        score_label = ttk.Label(self.master, text="当前分数: 0", font=("Arial", 24), foreground="#008000")
-        score_label.grid(row=1, column=0, columnspan=c.GRID_LEN, pady=5, sticky="ew")
+        self.score_label = ttk.Label(self.master, text="当前分数: " + str(_current.getScore()), font=("Arial", 24),
+                                foreground="#008000")
+        self.score_label.grid(row=1, column=0, columnspan=c.GRID_LEN, pady=5, sticky="ew")
 
-        high_score_label = ttk.Label(self.master, text="历史最高分数:", font=("Arial", 24), foreground="#008000")
-        high_score_label.grid(row=2, column=0, columnspan=c.GRID_LEN, pady=5, sticky="ew")
+        self.high_score_label = ttk.Label(self.master, text="历史最高分数: " + str(_current.getBestScore()),
+                                     font=("Arial", 24), foreground="#008000")
+        self.high_score_label.grid(row=2, column=0, columnspan=c.GRID_LEN, pady=5, sticky="ew")
 
         for i in range(c.GRID_LEN):
             grid_row = []
@@ -93,6 +99,12 @@ class GameGrid:
                 new_number = self.matrix[i][j]
                 if new_number == 0:
                     self.grid_cells[i][j].configure(text="", bg=c.BACKGROUND_COLOR_CELL_EMPTY)
+                    # 更新当前分数标签的文本
+                    self.score_label.configure(text="当前分数: " + str(_current.getScore()))
+                    # 更新历史最高分数标签的文本
+                    self.high_score_label.configure(text="历史最高分数: " + str(_current.getBestScore()))
+
+
                 else:
                     self.grid_cells[i][j].configure(
                         text=str(new_number),
@@ -117,9 +129,12 @@ class GameGrid:
                 if logic.game_state(self.matrix) == 'win':
                     self.grid_cells[1][1].configure(text="You", bg=c.BACKGROUND_COLOR_CELL_EMPTY)
                     self.grid_cells[1][2].configure(text="Win!", bg=c.BACKGROUND_COLOR_CELL_EMPTY)
+                    _current.saveScore()
                 if logic.game_state(self.matrix) == 'lose':
                     self.grid_cells[1][1].configure(text="You", bg=c.BACKGROUND_COLOR_CELL_EMPTY)
                     self.grid_cells[1][2].configure(text="Lose!", bg=c.BACKGROUND_COLOR_CELL_EMPTY)
+                    _current.saveScore()
+
 
 def return_to_menu(root):
     import menuUi

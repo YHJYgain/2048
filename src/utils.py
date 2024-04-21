@@ -1,8 +1,10 @@
 import sqlite3
 import os
 
+from src import constant
 
-def __init__(script_file, db_file='../assets/scoreRecord.db'):
+
+def init(script_file=constant.SCRIPT_FILE, db_file="../assets/scoreRecord.db"):
     """
     初始化ScoreRecord表
 
@@ -30,7 +32,7 @@ def __init__(script_file, db_file='../assets/scoreRecord.db'):
         print("数据库文件已存在，无需初始化。")
 
 
-def add_record(db_file, score, game_duration):
+def add_record(db_file, score):
     """
     向ScoreRecord表中添加一条记录
 
@@ -45,7 +47,7 @@ def add_record(db_file, score, game_duration):
         cursor = conn.cursor()
 
         # 执行插入记录的SQL语句
-        cursor.execute("INSERT INTO ScoreRecord (Score, GameDuration) VALUES (?, ?)", (score, game_duration))
+        cursor.execute("INSERT INTO ScoreRecord (Score) VALUES (?)", (score,))
 
         # 提交并关闭连接
         conn.commit()
@@ -55,55 +57,10 @@ def add_record(db_file, score, game_duration):
         print("添加记录失败:", e)
 
 
-def delete_record(db_file, record_id):
-    """
-    删除数据库中的一条记录
-
-    参数:
-    db_file (str): SQLite数据库文件路径
-    record_id (int): 要删除的记录的ID
-    """
-    try:
-        # 连接到SQLite数据库
-        conn = sqlite3.connect(db_file)
-        cursor = conn.cursor()
-
-        # 执行删除记录的SQL语句
-        cursor.execute("DELETE FROM ScoreRecord WHERE RecordID = ?", (record_id,))
-
-        # 提交并关闭连接
-        conn.commit()
-        conn.close()
-        print("记录删除成功！")
-    except Exception as e:
-        print("删除记录失败:", e)
 
 
-def update_record(db_file, record_id, score, game_duration):
-    """
-    更新数据库中的一条记录
 
-    参数:
-    db_file (str): SQLite数据库文件路径
-    record_id (int): 要更新的记录的ID
-    score (int): 新的分数
-    game_duration (int): 新的游戏持续时间
-    """
-    try:
-        # 连接到SQLite数据库
-        conn = sqlite3.connect(db_file)
-        cursor = conn.cursor()
 
-        # 执行更新记录的SQL语句
-        cursor.execute("UPDATE ScoreRecord SET Score = ?, GameDuration = ? WHERE RecordID = ?",
-                       (score, game_duration, record_id))
-
-        # 提交并关闭连接
-        conn.commit()
-        conn.close()
-        print("记录更新成功！")
-    except Exception as e:
-        print("更新记录失败:", e)
 
 
 def query_records(db_file):
@@ -151,12 +108,11 @@ def query_records_descending(db_file):
         cursor.execute("SELECT * FROM ScoreRecord ORDER BY Score DESC")
 
         # 获取查询结果
-        records = cursor.fetchall()
-
+        scores = [row[1] for row in cursor.fetchall()]
         # 关闭连接
         conn.close()
 
-        return records
+        return scores
     except Exception as e:
         print("查询记录失败:", e)
         return []

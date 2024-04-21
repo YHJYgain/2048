@@ -1,6 +1,8 @@
 CREATE TABLE ScoreRecord (
     RecordID INT AUTO_INCREMENT PRIMARY KEY,
-    Score INT DEFAULT 0,
-    Date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    GameDuration INT DEFAULT 0
+    Score INT DEFAULT 0
 );
+
+INSERT INTO ScoreRecord (Score) VALUES (100);
+INSERT INTO ScoreRecord (Score) VALUES (200);
+INSERT INTO ScoreRecord (Score) VALUES (300);
