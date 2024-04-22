@@ -1,24 +1,10 @@
-#
-# CS1010FC --- Programming Methodology
-#
-# Mission N Solutions
-#
-# Note that written answers are commented out to allow us to run your
-# code easily while grading your problem set.
-
 import random
 import ui as c
 from _global import _current
 
 
-#######
-# Task 1a #
-#######
-
-# [Marking Scheme]
-# Points to note:
-# Matrix elements must be equal but not identical
-# 1 mark for creating the correct matrix
+# 矩阵元素必须相等但不相同
+# 1 标记用于创建正确的矩阵
 
 def new_game(n):
     matrix = []
@@ -29,14 +15,9 @@ def new_game(n):
     return matrix
 
 
-###########
-# Task 1b #
-###########
-
-# [Marking Scheme]
-# Points to note:
-# Must ensure that it is created on a zero entry
-# 1 mark for creating the correct loop
+# 任务 1b #
+# 必须确保它是在零条目上创建的
+# 1 个标记用于创建正确的循环
 
 def add_two(mat):
     a = random.randint(0, len(mat) - 1)
@@ -48,17 +29,13 @@ def add_two(mat):
     return mat
 
 
-###########
-# Task 1c #
-###########
+# 任务 1c #
 
-# [Marking Scheme]
-# Points to note:
-# Matrix elements must be equal but not identical
-# 0 marks for completely wrong solutions
-# 1 mark for getting only one condition correct
-# 2 marks for getting two of the three conditions
-# 3 marks for correct checking
+# 矩阵元素必须相等但不相同
+# 完全错误的解决方案得 0 分
+# 只答对一个条件得 1 分
+# 满足三个条件中的两个则得 2 分
+# 正确检查得 3 分
 
 def game_state(mat):
     # check for win cell
@@ -87,15 +64,12 @@ def game_state(mat):
     return 'lose'
 
 
-###########
-# Task 2a #
-###########
 
-# [Marking Scheme]
-# Points to note:
-# 0 marks for completely incorrect solutions
-# 1 mark for solutions that show general understanding
-# 2 marks for correct solutions that work for all sizes of matrices
+# 任务 2a #
+
+# 完全错误的解决方案得 0 分
+# 1 分表示具有一般理解的解决方案
+# 2 分表示适用于所有大小矩阵的正确解决方案
 
 def reverse(mat):
     new = []
@@ -106,16 +80,6 @@ def reverse(mat):
     return new
 
 
-###########
-# Task 2b #
-###########
-
-# [Marking Scheme]
-# Points to note:
-# 0 marks for completely incorrect solutions
-# 1 mark for solutions that show general understanding
-# 2 marks for correct solutions that work for all sizes of matrices
-
 def transpose(mat):
     new = []
     for i in range(len(mat[0])):
@@ -125,18 +89,15 @@ def transpose(mat):
     return new
 
 
-##########
-# Task 3 #
-##########
 
-# [Marking Scheme]
-# Points to note:
-# The way to do movement is compress -> merge -> compress again
-# Basically if they can solve one side, and use transpose and reverse correctly they should
-# be able to solve the entire thing just by flipping the matrix around
-# No idea how to grade this one at the moment. I have it pegged to 8 (which gives you like,
-# 2 per up/down/left/right?) But if you get one correct likely to get all correct so...
-# Check the down one. Reverse/transpose if ordered wrongly will give you wrong result.
+# 任务 3 #
+
+# 移动的方式是压缩 -> 合并 -> 再次压缩
+# 基本上，如果他们可以解决一侧问题，并正确使用转置和反转，他们应该
+# 只需翻转矩阵就能解决整个问题
+# 目前不知道如何给这个评分。 我把它固定在 8（这让你喜欢，
+# 上/下/左/右各 2 个，但是如果你答对了一个，很可能全部答对
+# 检查下一个。 如果顺序错误，则反转/转置将给出错误的结果。
 
 def cover_up(mat):
     new = []
@@ -170,7 +131,7 @@ def merge(mat, done):
 
 def up(game):
     print("up")
-    # return matrix after shifting up
+    #返回上移后的矩阵
     game = transpose(game)
     game, done = cover_up(game)
     game, done = merge(game, done)
@@ -181,7 +142,7 @@ def up(game):
 
 def down(game):
     print("down")
-    # return matrix after shifting down
+    # 返回下移后的矩阵
     game = reverse(transpose(game))
     game, done = cover_up(game)
     game, done = merge(game, done)
@@ -192,7 +153,7 @@ def down(game):
 
 def left(game):
     print("left")
-    # return matrix after shifting left
+    # 返回左移后的矩阵
     game, done = cover_up(game)
     game, done = merge(game, done)
     game = cover_up(game)[0]
@@ -201,7 +162,7 @@ def left(game):
 
 def right(game):
     print("right")
-    # return matrix after shifting right
+    # 返回右移后的矩阵
     game = reverse(game)
     game, done = cover_up(game)
     game, done = merge(game, done)
