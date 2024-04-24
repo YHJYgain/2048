@@ -4,10 +4,9 @@ from tkinter import messagebox
 from tkinter import ttk
 from src import utils, constant
 
-utils.init(constant.SCRIPT_FILE,constant.DB_FILE)
-from menuUi import Game2048
+utils.init(constant.SCRIPT_FILE, constant.DB_FILE)
 
-# back_button = ttk.Button(root, text="返回主菜单", command=lambda: Game2048.return_rank())
+
 def show_history(root):
     # 清空原有的所有组件
     for widget in root.winfo_children():
@@ -23,9 +22,8 @@ def show_history(root):
     # 设置按钮的样式
     style.configure("TButton", background="#ADD8E6", foreground="black")  # 设置按钮的背景色和字体颜色
 
-    # 创建Treeview组件
+    # 创建 Treeview 组件
     tree = ttk.Treeview(root, columns=("Index", "Score"), show="headings")
-
 
     # 设置列标题和字体颜色
     tree.heading("Index", text="排序", anchor=tk.CENTER)
@@ -47,8 +45,10 @@ def show_history(root):
     for index, score in enumerate(sample_scores, start=1):
         tree.insert("", "end", values=(index, score), tags=("blue_font",))
 
-    # 调整Treeview的布局
-    tree.pack(expand=False)  # 设置expand为False使Treeview只占据所需空间
+    # 调整 Treeview 的布局
+    tree.pack(expand=False)  # 设置 expand 为 False 使 Treeview 只占据所需空间
+
+
 def return_to_menu(root):
     import menuUi
     menuUi.Game2048(root)

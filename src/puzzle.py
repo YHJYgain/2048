@@ -2,9 +2,7 @@ from tkinter import Frame, Label, CENTER
 import random
 import logic
 import ui as c
-import tkinter as tk
 from tkinter import ttk
-
 from _global import _current
 
 
@@ -15,6 +13,8 @@ def gen():
 class GameGrid:
     def __init__(self, master):
         _current.__init__()
+        self.score_label = None
+        self.high_score_label = None
         self.master = master
         for widget in self.master.winfo_children():
             widget.destroy()
@@ -51,11 +51,11 @@ class GameGrid:
 
         # 创建分数和历史最高分数的标签
         self.score_label = ttk.Label(self.master, text="当前分数: " + str(_current.getScore()), font=("Arial", 24),
-                                foreground="#008000")
+                                     foreground="#008000")
         self.score_label.grid(row=1, column=0, columnspan=c.GRID_LEN, pady=5, sticky="ew")
 
         self.high_score_label = ttk.Label(self.master, text="历史最高分数: " + str(_current.getBestScore()),
-                                     font=("Arial", 24), foreground="#008000")
+                                          font=("Arial", 24), foreground="#008000")
         self.high_score_label.grid(row=2, column=0, columnspan=c.GRID_LEN, pady=5, sticky="ew")
 
         for i in range(c.GRID_LEN):
@@ -103,8 +103,6 @@ class GameGrid:
                     self.score_label.configure(text="当前分数: " + str(_current.getScore()))
                     # 更新历史最高分数标签的文本
                     self.high_score_label.configure(text="历史最高分数: " + str(_current.getBestScore()))
-
-
                 else:
                     self.grid_cells[i][j].configure(
                         text=str(new_number),
@@ -136,6 +134,7 @@ class GameGrid:
                     _current.saveScore()
                     import gameoverUi
                     gameoverUi.GameOverUI(self.master)
+
 
 def return_to_menu(root):
     import menuUi

@@ -9,14 +9,12 @@ class GameOverUI:
     def __init__(self, master):
         self.master = master
 
-
         # 清空主界面
         for widget in self.master.winfo_children():
             widget.destroy()
 
-        #窗口大小
+        # 窗口大小
         self.master.geometry("800x600")
-
 
         # 显示分数
         self.score_label = Label(
@@ -51,5 +49,3 @@ class GameOverUI:
         # 重新开始游戏
         import puzzle
         puzzle.GameGrid(self.master)
-
-
