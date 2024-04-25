@@ -1,5 +1,12 @@
+import sys
 import tkinter as tk
 from tkinter import ttk
+
+for path in sys.path:
+    if path.endswith('2048\\src'):
+        path = path.replace('\\src', '')
+        sys.path.append(path)
+        break
 
 
 class Game2048:
