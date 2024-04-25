@@ -94,7 +94,6 @@ def merge(mat, done):
 
 
 def up(game):
-    print("up")
     # 返回上移后的矩阵
     game = transpose(game)
     game, done = cover_up(game)
@@ -105,7 +104,6 @@ def up(game):
 
 
 def down(game):
-    print("down")
     # 返回下移后的矩阵
     game = reverse(transpose(game))
     game, done = cover_up(game)
@@ -116,7 +114,6 @@ def down(game):
 
 
 def left(game):
-    print("left")
     # 返回左移后的矩阵
     game, done = cover_up(game)
     game, done = merge(game, done)
@@ -125,7 +122,6 @@ def left(game):
 
 
 def right(game):
-    print("right")
     # 返回右移后的矩阵
     game = reverse(game)
     game, done = cover_up(game)
