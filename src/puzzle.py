@@ -39,6 +39,8 @@ class GameGrid:
         self.grid_cells = []
         self.matrix = logic.new_game(c.GRID_LEN)
         self.history_matrixs = []
+        self.history_score = []
+        self.history_best_score = []
 
         self.init_grid()
         self.update_grid_cells()
@@ -116,13 +118,21 @@ class GameGrid:
         if key == c.KEY_QUIT:
             exit()
         if key == c.KEY_BACK and len(self.history_matrixs) > 1:
-            self.matrix = self.history_matrixs.pop()
+            # fix rollback bug
+            self.history_matrixs.pop()
+            self.history_score.pop()
+            self.history_best_score.pop()
+            _current.best_score = self.history_best_score[-1]
+            _current.score = self.history_score[-1]
+            self.matrix = self.history_matrixs[-1]
             self.update_grid_cells()
         elif key in self.commands:
             self.matrix, done = self.commands[key](self.matrix)
             if done:
                 self.matrix = logic.add_two(self.matrix)
                 self.history_matrixs.append(self.matrix)
+                self.history_score.append(_current.getScore())
+                self.history_best_score.append(_current.getBestScore())
                 self.update_grid_cells()
                 if logic.game_state(self.matrix) == 'win':
                     self.grid_cells[1][1].configure(text="You", bg=c.BACKGROUND_COLOR_CELL_EMPTY)
