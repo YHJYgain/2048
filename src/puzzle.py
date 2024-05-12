@@ -118,7 +118,7 @@ class GameGrid:
         if key == c.KEY_QUIT:
             exit()
         if key == c.KEY_BACK and len(self.history_matrixs) > 1:
-            # fix rollback bug
+            # 修复回滚错误
             self.history_matrixs.pop()
             self.history_score.pop()
             self.history_best_score.pop()

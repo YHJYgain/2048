@@ -1,6 +1,4 @@
-import sqlite3
 import tkinter as tk
-from tkinter import messagebox
 from tkinter import ttk
 from src import utils, constant
 
@@ -41,7 +39,7 @@ def show_history(root):
     # 模拟查询结果
     sample_scores = utils.query_records_descending(constant.DB_FILE)
 
-    # 添加数据到Treeview
+    # 添加数据到 Treeview
     for index, score in enumerate(sample_scores, start=1):
         tree.insert("", "end", values=(index, score), tags=("blue_font",))
 

@@ -1,18 +1,13 @@
 from src import utils
-import datetime
 
 
 class current:
     def __init__(self, scores_file="../assets/scoreRecord.db",
                  script_file="../assets/initScoreRecord.sql"):
         """
-        Create a new game.
+        创造一个新游戏实例。
             scores_file: 用于获得最佳分数的文件
-            colors: dictionnary with colors to use for each tile
-            store_file: file that stores game session's snapshot
-            mode: color mode. This adjust a few colors and can be 'dark' or
-                  'light'. See the adjustColors functions for more info.
-            other options are passed to the underlying Board object.
+            store_file: 存储游戏会话的文件
         """
         utils.init(script_file, scores_file)
         self.score = 0
@@ -24,7 +19,7 @@ class current:
 
     def loadBestScore(self):
         """
-        load local best score from the default file
+        从默认文件加载本地最佳分数
         """
         try:
             self.best_score = utils.get_highest_score_record(self.scores_file)[1]
@@ -34,9 +29,8 @@ class current:
 
     def saveScore(self):
         """
-            save current best score in the default file
-            在游戏结束时调用该函数保存分数
-            """
+        在游戏结束时调用该函数保存分数
+        """
         try:
             utils.add_record(self.scores_file, self.score)
         except:
@@ -45,7 +39,7 @@ class current:
 
     def incScore(self, pts):
         """
-            通过添加指定的点数来更新当前分数
+        通过添加指定的点数来更新当前分数
         """
         self.score += pts
         if self.score > self.best_score:

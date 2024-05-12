@@ -1,8 +1,6 @@
-from tkinter import Tk, Frame, Label, Button, CENTER
+from tkinter import Label, Button, CENTER
 import tkinter.font as tkFont
 from _global import _current
-import logic
-import ui as c
 
 
 class GameOverUI:

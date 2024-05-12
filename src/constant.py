@@ -1,4 +1,3 @@
-
 # 数据库文件路径
 DB_FILE = "../assets/scoreRecord.db"
 
